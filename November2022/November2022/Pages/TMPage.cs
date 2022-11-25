@@ -17,6 +17,7 @@ namespace November2022.Pages
             // select Time in the typecode dropdown
             IWebElement typeCodeDropdown = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[2]/span"));
             typeCodeDropdown.Click();
+            Thread.Sleep(500);
 
             IWebElement timeOption = driver.FindElement(By.XPath("//*[@id='TypeCode_listbox']/li[2]"));
             timeOption.Click();
@@ -69,7 +70,8 @@ namespace November2022.Pages
 
         public void EditTM(IWebDriver driver)
         {
-            Thread.Sleep(3000);
+            Wait.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[1]/td[1]", 3);
+
             IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             goToLastPageButton.Click();
 
@@ -86,6 +88,7 @@ namespace November2022.Pages
             {
                 Assert.Fail("Record to be edited hasn't been found. Record not edited");
             }
+
             // edit code textbox 
             IWebElement editCodeTextbox = driver.FindElement(By.Id("Code"));
             editCodeTextbox.Clear();
@@ -110,7 +113,7 @@ namespace November2022.Pages
             // click save button
             IWebElement clickSavebutton = driver.FindElement(By.Id("SaveButton"));
             clickSavebutton.Click();
-            Thread.Sleep(1500);
+            Wait.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[1]/td[1]", 3);
 
             // click go to the late page
             IWebElement gotothelastpageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
@@ -121,9 +124,11 @@ namespace November2022.Pages
 
         public void DeleteTM(IWebDriver driver)
         {
-            Thread.Sleep(3000);
+            Wait.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[1]/td[1]", 3);
+
             IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             goToLastPageButton.Click();
+            Thread.Sleep(1000);
 
             // click delete button
             IWebElement deleteButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
@@ -133,7 +138,23 @@ namespace November2022.Pages
             // conforming delete ok button
             driver.SwitchTo().Alert().Accept();
 
+            // Click OK on Alert popup Window 
 
+            driver.Navigate().Refresh();
+            Wait.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[1]/td[1]", 3);
+
+            //VALIDATE DELETE
+            IWebElement deletedRecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+
+
+            if (deletedRecord.Text != "C002")
+            {
+                Assert.Pass("Record has been deleted successfully ");
+            }
+            else
+            {
+                Assert.Fail("Record hasn't been deleted");
+            }
         }
     }
 }
