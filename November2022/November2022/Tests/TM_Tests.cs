@@ -27,7 +27,7 @@ namespace November2022.Tests
             homePageObj.GoToTMPage(driver);
 
             TMPage tmPageObj = new TMPage();
-            tmPageObj.EditTM(driver);
+            //tmPageObj.EditTM(driver);
         }
 
         [Test, Order (3), Description("Check if user is able to delete existing record successfully")]

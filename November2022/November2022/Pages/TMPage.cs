@@ -47,28 +47,28 @@ namespace November2022.Pages
             // check if new time record has been created successfully
             IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             goToLastPageButton.Click();
-
-            IWebElement newCode = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
-            IWebElement newDescription = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
-            IWebElement newPrice = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[4]"));
-
-            // Example 1:
-            Assert.That(newCode.Text == "November2022", "Actual code and expected code do not match.");
-            Assert.That(newDescription.Text == "November2022", "Actual description and expected description do not match");
-            Assert.That(newPrice.Text == "$12.00", "Actual price and expeected price do not match.");
-
-            // Example 2:
-            //if (newCode.Text == "November2022")
-            //{
-            //    Assert.Pass("Time record created successfully.");
-            //}
-            //else
-            //{
-            //    Assert.Fail("Time record hasn't been created successfully");
-            //}
+            Thread.Sleep(1000);
         }
 
-        public void EditTM(IWebDriver driver)
+        public string GetCode(IWebDriver driver)
+        {
+            IWebElement actualCode = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
+            return actualCode.Text;
+        }
+
+        public string GetDescription(IWebDriver driver)
+        {
+            IWebElement actualDescription = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+            return actualDescription.Text;
+        }
+
+        public string GetPrice(IWebDriver driver)
+        {
+            IWebElement actualPrice = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[4]"));
+            return actualPrice.Text;
+        }
+
+        public void EditTM(IWebDriver driver, string Description)
         {
             Wait.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[1]/td[1]", 3);
 
@@ -77,7 +77,7 @@ namespace November2022.Pages
 
             IWebElement findNewRecordCreated = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
 
-            if (findNewRecordCreated.Text == "November2022")
+            if (findNewRecordCreated.Text == "Testproject1")
             {
                 Thread.Sleep(2000);
                 // click edit button
@@ -98,7 +98,7 @@ namespace November2022.Pages
             // edit description textbox
             IWebElement editDescriptionTextbox = driver.FindElement(By.Id("Description"));
             editDescriptionTextbox.Clear();
-            editDescriptionTextbox.SendKeys("Firstone");
+            editDescriptionTextbox.SendKeys(Description);
             Thread.Sleep(1500);
 
             // edit price per unit textbox
@@ -120,6 +120,12 @@ namespace November2022.Pages
             gotothelastpageButton.Click();
             Thread.Sleep(1500);
 
+        }
+
+        public string GetEditedDescription(IWebDriver driver)
+        {
+            IWebElement editedDescription = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+            return editedDescription.Text;
         }
 
         public void DeleteTM(IWebDriver driver)

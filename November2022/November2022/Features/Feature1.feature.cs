@@ -106,6 +106,43 @@ this.ScenarioInitialize(scenarioInfo);
             }
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Edit existing time record with valid details")]
+        [NUnit.Framework.TestCaseAttribute("Time", null)]
+        [NUnit.Framework.TestCaseAttribute("Material", null)]
+        [NUnit.Framework.TestCaseAttribute("EditedRecord", null)]
+        public void EditExistingTimeRecordWithValidDetails(string description, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Description", description);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit existing time record with valid details", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 13
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 14
+ testRunner.Given("I logged into turn up portal successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 15
+ testRunner.When("I navigate to Time and Material page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 16
+ testRunner.And(string.Format("I update \'{0}\' on an existing time record", description), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 17
+ testRunner.Then(string.Format("The record should have the updated \'{0}\'", description), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
