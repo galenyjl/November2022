@@ -6,12 +6,15 @@ namespace November2022.StepDefinitions
     [Binding]
     public class TMFeatureStepDefinitions : CommonDriver
     {
+        LoginPage loginPageObj = new LoginPage();
+        HomePage homePageObj = new HomePage();
+        TMPage tmPageObj = new TMPage();
+
         [Given(@"I logged into turn up portal successfully")]
         public void GivenILoggedIntoTurnUpPortalSuccessfully()
         {
             driver = new ChromeDriver();
 
-            LoginPage loginPageObj = new LoginPage();
             loginPageObj.LoginActions(driver);
         }
 
@@ -19,7 +22,6 @@ namespace November2022.StepDefinitions
         public void WhenINavigateToTimeAndMaterialPage()
         {
             // Home page object initialization and definition
-            HomePage homePageObj = new HomePage();
             homePageObj.GoToTMPage(driver);
         }
 
@@ -27,15 +29,12 @@ namespace November2022.StepDefinitions
         public void WhenICreateANewTimeAndMaterialRecord()
         {
             // TM Page object initialization and definition
-            TMPage tmPageObj = new TMPage();
             tmPageObj.CreateTM(driver);
         }
 
         [Then(@"The record should be created successfully")]
         public void ThenTheRecordShouldBeCreatedSuccessfully()
         {
-            TMPage tmPageObj = new TMPage();
-
             string newCode = tmPageObj.GetCode(driver);
             string newDescription = tmPageObj.GetDescription(driver);
             string newPrice = tmPageObj.GetPrice(driver);
@@ -45,21 +44,22 @@ namespace November2022.StepDefinitions
             Assert.That(newPrice == "$12.00", "Actual price and expeected price do not match.");
         }
 
-        [When(@"I update '([^']*)' on an existing time record")]
-        public void WhenIUpdateOnAnExistingTimeRecord(string Description)
+        [When(@"I update '([^']*)', '([^']*)', '([^']*)' on an existing time record")]
+        public void WhenIUpdateOnAnExistingTimeRecord(string description, string code, string price)
         {
-            TMPage tmPageObj = new TMPage();
-            tmPageObj.EditTM(driver, Description);
+            tmPageObj.EditTM(driver, description, code, price);
         }
 
-        [Then(@"The record should have the updated '([^']*)'")]
-        public void ThenTheRecordShouldHaveTheUpdated(string Description)
+        [Then(@"The record should have the updated '([^']*)', '([^']*)' and '([^']*)'")]
+        public void ThenTheRecordShouldHaveTheUpdatedAnd(string description, string code, string price)
         {
-            TMPage tmPageObj = new TMPage();
-            string editDescription = tmPageObj.GetEditedDescription(driver);
+            string editedDescription = tmPageObj.GetEditedDescription(driver);
+            string editedCode = tmPageObj.GetEditedCode(driver);
+            string editedPrice = tmPageObj.GetEditedPrice(driver);
 
-            Assert.That(editDescription == Description, "Actual desription and expected description do not match");
+            Assert.That(editedDescription == description, "Actual desription and expected description do not match");
+            Assert.That(editedCode == code, "Actual code and expected code do not match");
+            Assert.That(editedPrice == price, "Actual price and expected price do not match");
         }
-
     }
 }

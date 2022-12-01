@@ -13,11 +13,11 @@ Scenario: Create time and material record with valid details
 Scenario Outline: Edit existing time record with valid details
 	Given I logged into turn up portal successfully
 	When I navigate to Time and Material page
-	And I update '<Description>' on an existing time record
-	Then The record should have the updated '<Description>'
+	And I update '<Description>', '<Code>', '<Price>' on an existing time record
+	Then The record should have the updated '<Description>', '<Code>' and '<Price>'
 
 Examples: 
-| Description  |
-| Time         |
-| Material     |
-| EditedRecord |
+| Description  | Code     | Price |
+| Time         | Galen    | 20    |
+| Material     | Keyboard | 100   |
+| EditedRecord | Mouse    | 1500  |
