@@ -7,121 +7,42 @@
 	},
 	"item": [
 		{
-			"name": "Get all  user data",
+			"name": "Get all  employee data",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/employees",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a single employee",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://reqres.in/api/users",
-					"protocol": "https",
+					"raw": "{{baseUrl}}/api/v1/employee/1",
 					"host": [
-						"reqres",
-						"in"
+						"{{baseUrl}}"
 					],
 					"path": [
 						"api",
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get a single user",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://reqres.in/api/users/722",
-					"protocol": "https",
-					"host": [
-						"reqres",
-						"in"
-					],
-					"path": [
-						"api",
-						"users",
-						"722"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create a new user",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"galen\",\r\n    \"job\": \"tester\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://reqres.in/api/users",
-					"protocol": "https",
-					"host": [
-						"reqres",
-						"in"
-					],
-					"path": [
-						"api",
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update an existing user",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"galen\",\r\n    \"job\": \"test engineer\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://reqres.in/api/users/722",
-					"protocol": "https",
-					"host": [
-						"reqres",
-						"in"
-					],
-					"path": [
-						"api",
-						"users",
-						"722"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete an existing user",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "https://reqres.in/api/users/722",
-					"protocol": "https",
-					"host": [
-						"reqres",
-						"in"
-					],
-					"path": [
-						"api",
-						"users",
-						"722"
+						"v1",
+						"employee",
+						"1"
 					]
 				}
 			},

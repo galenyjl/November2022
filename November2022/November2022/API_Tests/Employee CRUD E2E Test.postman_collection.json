@@ -1,0 +1,167 @@
+{
+	"info": {
+		"_postman_id": "f78c719f-d852-4681-a702-5dc1171199f6",
+		"name": "Employee CRUD E2E Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24345389"
+	},
+	"item": [
+		{
+			"name": "Create a new employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assertion 1 - Status code check\r",
+							"pm.test(\"Status code check\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Assertion 2 - Response value check\r",
+							"pm.test(\"Check key-value pairs in the response\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    // Name check\r",
+							"    pm.expect(jsonData.data.name).to.eql(\"galen\");\r",
+							"    // Salary check\r",
+							"    pm.expect(jsonData.data.salary).to.eql(\"123\");\r",
+							"    // Age check\r",
+							"    pm.expect(jsonData.data.age).to.eql(\"18\");\r",
+							"\r",
+							"    pm.environment.set(\"employeeID\", jsonData.data.id);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"galen\",\r\n    \"salary\": \"123\",\r\n    \"age\": \"18\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an existing employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assertion 1 - Status code check\r",
+							"pm.test(\"Status code check\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Assertion 2 - Response value check\r",
+							"pm.test(\"Check key-value pairs in the response\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    // Name check\r",
+							"    pm.expect(jsonData.data.name).to.eql(\"galen\");\r",
+							"    // Salary check\r",
+							"    pm.expect(jsonData.data.salary).to.eql(\"123\");\r",
+							"    // Age check\r",
+							"    pm.expect(jsonData.data.age).to.eql(\"19\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"galen\",\r\n    \"salary\": \"123\",\r\n    \"age\": \"19\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/update/{{employeeID}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"update",
+						"{{employeeID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an existing employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assertion 1 - Status code check\r",
+							"pm.test(\"Status code check\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Assertion 2 - Response value check\r",
+							"pm.test(\"Check key-value pairs in the response\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+							"    pm.expect(jsonData.data).to.eql(pm.environment.get(\"employeeID\").toString());\r",
+							"    pm.expect(jsonData.message).to.eql(\"Successfully! Record has been deleted\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/delete/{{employeeID}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"delete",
+						"{{employeeID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
